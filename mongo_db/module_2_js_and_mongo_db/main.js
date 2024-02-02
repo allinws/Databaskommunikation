@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+
 const main = async () => {
   try {
     // Connect to the MongoDB database
@@ -27,6 +28,7 @@ const main = async () => {
     await carInstance.save();
     console.log('Single document inserted');
 
+
     // Insert multiple documents into the collection using `insertMany`
     await Car.insertMany([
       {
@@ -44,6 +46,19 @@ const main = async () => {
     ]);
     console.log('Multiple documents inserted');
 
+    // Update the color of the Volvo car to red
+    const updateResult = await Car.findOneAndUpdate(
+      { brand: "Volvo" }, // Criteria to find the Volvo car
+      { $set: { color: "red" } }, // Update operation to set the color to red
+      { new: true } // Options to return the updated document
+    );
+
+    if(updateResult) {
+      console.log('Updated Volvo car:', updateResult);
+    } else {
+      console.log('No Volvo car found to update.');
+    }
+
     // Query examples
 
     // Retrieve all documents in the cars collection
@@ -55,7 +70,7 @@ const main = async () => {
     console.log('First car:', firstCar);
 
     // Retrieve all Mercedes cars
-    let allMercedes = await Car.find({brand: "Mercedes"});
+    let allMercedes = await Car.find({brand: "Mercedes"}, {model: 1, _id: 0});
     console.log('All Mercedes cars:', allMercedes);
 
     // Retrieve the first Mercedes car
