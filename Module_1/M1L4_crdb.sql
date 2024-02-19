@@ -48,3 +48,22 @@ Check what happened
 */
 SHOW DATABASES;
 SHOW TABLES;
+
+
+
+INSERT INTO Customers (surname, initials, salutation, telnumber, address)
+VALUES ('Doe', 'J.D.', 'Mr.', '123456789', '123 Maple Street'),
+       ('Smith', 'A.B.', 'Ms.', '987654321', '456 Oak Avenue');
+
+
+INSERT INTO Orders (order_date, delivery_date, customer, total_price)
+VALUES ('2024-02-01', '2024-02-15', 5, 2000.00);
+
+
+INSERT INTO Orders (order_date, delivery_date, customer, total_price)
+VALUES ('2024-02-02', NULL, 2, 850.00);
+
+
+
+mysql> SELECT customer, SUM(total_price) AS total_spent FROM Orders WHERE customer = 6 GROUP BY customer;
+mysql> SELECT customer, SUM(total_price) AS total_spent FROM Orders WHERE customer = 6 GROUP BY customer;
